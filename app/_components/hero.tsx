@@ -9,7 +9,7 @@ const Hero = () => {
       <div className='mt-20 relative'>
         <motion.div
           initial={{ gap: "0.25rem" }}
-          animate={{ gap: "2rem" }}
+          animate={{ gap: "1.9rem" }}
           transition={{ delay: 0.9, duration: 0.5, ease: "easeOut" }}
           className='flex justify-center items-center'
         >
@@ -142,7 +142,7 @@ const Card = () => {
         variants={backVariants}
         style={{ transformOrigin: "right center" }}
         transition={{ type: "spring", stiffness: 220, damping: 18 }}
-        className='h-16 w-62 absolute bg-black top-2 left-3 rounded-xs z-0 ring-4 ring-black'
+        className='h-16 w-62 absolute bg-black top-1 left-3 rounded-xs z-0 ring-4 ring-black'
       ></motion.div>
     </motion.div>
   )
@@ -158,9 +158,9 @@ const Badge = () => {
     >
       <motion.div
         initial={{ rotate: 6 }}
-        whileHover={{ rotate: 0 }}
+        whileHover={{ rotate: -1 }}
         transition={{ type: "spring", stiffness: 220, damping: 18 }}
-        className='bg-white h-10 mt-5 overflow-hidden rounded-full flex justify-center items-center z-50 relative rotate-6'
+        className='bg-white h-10 mt-5 overflow-hidden rounded-full flex justify-center items-center z-50 relative'
         style={{ transformOrigin: "right center" }}
       >
         <div
@@ -183,7 +183,7 @@ const Badge = () => {
       </motion.div>
       <div
         style={{ transformOrigin: "right center" }}
-        className='bg-black h-10 w-20 overflow-hidden rounded-full absolute top-6 right-0 z-0'
+        className='bg-neutral-200 h-10 w-20 overflow-hidden rounded-full absolute top-6 right-0 z-0'
       ></div>
     </motion.div>
   )

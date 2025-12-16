@@ -3,7 +3,7 @@ import Navbar from "./navbar"
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='w-[90%] mx-auto'>
+    <div className='w-[85%] mx-auto'>
       <Navbar />
       {children}
     </div>
