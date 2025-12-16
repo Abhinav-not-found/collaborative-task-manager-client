@@ -8,8 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 import { useMutation } from "@tanstack/react-query"
-import { logoutUser } from "@/helper/auth-helper"
+import { logoutUser } from "@/helper/auth-client-helper"
 import { toast } from "sonner"
+import Link from "next/link"
 
 const CustomAvatar = () => {
   const router = useRouter()
@@ -35,7 +36,9 @@ const CustomAvatar = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <div className='flex flex-col gap-1'>
-          <Button variant={"ghost"}>View Profile</Button>
+          <Link href={"/profile"}>
+            <Button variant={"ghost"}>View Profile</Button>
+          </Link>
           <Button onClick={() => mutate()} variant={"outline"}>
             {isPending ? "Logging out..." : "Logout"}
           </Button>

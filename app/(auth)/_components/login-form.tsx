@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { loginUser } from "@/helper/auth-helper"
+import { loginUser } from "@/helper/auth-client-helper"
 import { toast } from "sonner"
 
 const LoginForm = () => {

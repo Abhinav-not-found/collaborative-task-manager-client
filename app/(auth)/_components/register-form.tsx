@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { registerUser } from "@/helper/auth-helper"
+import { registerUser } from "@/helper/auth-client-helper"
 
 const RegisterForm = () => {
   const router = useRouter()
