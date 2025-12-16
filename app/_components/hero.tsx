@@ -6,7 +6,7 @@ import { motion } from "motion/react"
 const Hero = () => {
   return (
     <div>
-      <div className='mt-20 relative'>
+      <div className='mt-28 relative'>
         <motion.div
           initial={{ gap: "0.25rem" }}
           animate={{ gap: "1.9rem" }}
