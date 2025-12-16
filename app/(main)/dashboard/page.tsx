@@ -1,10 +1,10 @@
-import React from 'react'
+import PrivateRoute from '@/components/routes/private-route'
 
 const DashboardPage = () => {
   return (
-    <div>
+    <PrivateRoute>
       DashboardPage
-    </div>
+    </PrivateRoute>
   )
 }
 

@@ -1,11 +1,11 @@
+
+import PublicRoute from "@/components/routes/public-route"
 import LoginForm from "../_components/login-form"
 
-const LoginPage = () => {
+export default async function LoginPage() {
   return (
-    <main className="flex items-center justify-center h-[90vh]">
+    <PublicRoute className='flex items-center justify-center h-[90vh]'>
       <LoginForm />
-    </main>
+    </PublicRoute>
   )
 }
-
-export default LoginPage

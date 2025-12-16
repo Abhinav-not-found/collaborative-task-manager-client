@@ -35,3 +35,19 @@ export const registerUser = async (data: RegisterPayload) => {
 
   return res.json()
 }
+
+export const logoutUser = async () => {
+  const res = await fetch("http://localhost:8000/user/logout", {
+    method: "POST",
+    credentials: "include",
+  })
+
+  const data = await res.json()
+
+  if (!res.ok) {
+    throw new Error(data.message || "Logout failed")
+  }
+
+  return data
+}
+

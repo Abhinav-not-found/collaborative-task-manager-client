@@ -18,6 +18,7 @@ const LoginForm = () => {
     mutationFn: loginUser,
     onSuccess: (data) => {
       router.push("/dashboard")
+      router.refresh()
       toast.success(data.message)
     },
     onError: (error: any) => {

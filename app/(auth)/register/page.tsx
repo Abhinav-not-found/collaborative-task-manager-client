@@ -1,11 +1,11 @@
-import RegisterForm from '../_components/register-form'
+import RegisterForm from "../_components/register-form"
+import PublicRoute from "@/components/routes/public-route"
 
-const RegisterPage = () => {
+export default async function RegisterPage() {
+
   return (
-    <main className="flex items-center justify-center h-[90vh]">
-      <RegisterForm/>
-    </main>
+    <PublicRoute className='flex items-center justify-center h-[90vh]'>
+      <RegisterForm />
+    </PublicRoute>
   )
 }
-
-export default RegisterPage

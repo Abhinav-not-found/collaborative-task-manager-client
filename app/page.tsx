@@ -1,5 +1,5 @@
+import PublicRoute from "@/components/routes/public-route"
 
-
-export default function LandingPage() {
-  return <>Landing Page</>
+export default async function LandingPage() {
+  return <PublicRoute>Landing Page</PublicRoute>
 }
