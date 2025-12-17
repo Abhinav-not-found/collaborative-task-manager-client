@@ -15,10 +15,10 @@ const DashboardPage = () => {
               <TabsTrigger value='assigned-task'>Assigned-task</TabsTrigger>
             </TabsList>
             <div className='flex gap-8'>
-              <div className='flex gap-4 items-center'>
+              {/* <div className='flex gap-4 items-center'>
                 <Grid2x2 />
                 <TableOfContents />
-              </div>
+              </div> */}
               <CreateTask />
             </div>
           </div>

@@ -22,6 +22,9 @@ import {
 import { Task } from "@/types/task-types"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import StatusFilter, { Status } from "./status-filter"
+import PriorityFilter, { Priority } from "./priority-filter"
+import DateFilter from "./date-filter"
 
 const updateTask = async ({
   id,
@@ -85,6 +88,22 @@ export default function TaskTable({ tasks }: { tasks: Task[] }) {
   const queryClient = useQueryClient()
   const router = useRouter()
 
+  const [statusFilter, setStatusFilter] = useState<Status>("all")
+  const [priorityFilter, setPriorityFilter] = useState<Priority>("all")
+  const [dueDateFilter, setDueDateFilter] = useState<string>("")
+
+  const filteredTasks = tasks.filter((task) => {
+    const statusMatch = statusFilter === "all" || task.status === statusFilter
+
+    const priorityMatch =
+      priorityFilter === "all" || task.priority === priorityFilter
+
+    const dueDateMatch =
+      !dueDateFilter || task.dueDate?.split("T")[0] === dueDateFilter
+
+    return statusMatch && priorityMatch && dueDateMatch
+  })
+
   const { mutate } = useMutation({
     mutationFn: updateTask,
     onSuccess: () => {
@@ -99,87 +118,106 @@ export default function TaskTable({ tasks }: { tasks: Task[] }) {
   }
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Title</TableHead>
-          <TableHead>Description</TableHead>
-          <TableHead>Due Date</TableHead>
-          <TableHead>Priority</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Actions</TableHead>
-        </TableRow>
-      </TableHeader>
+    <>
+      <div className='flex gap-3 mb-4'>
+        <h1 className='text-2xl font-medium'>Filter: </h1>
+        <StatusFilter
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+        />
+        <PriorityFilter
+          priorityFilter={priorityFilter}
+          setPriorityFilter={setPriorityFilter}
+        />
 
-      <TableBody>
-        {tasks.map((task) => (
-          <TableRow key={task._id}>
-            <TableCell>
-              <EditableCell
-                value={task.title}
-                onSave={(v) => save(task._id, "title", v)}
-              />
-            </TableCell>
+        <DateFilter
+          dueDateFilter={dueDateFilter}
+          setDueDateFilter={setDueDateFilter}
+        />
+      </div>
 
-            <TableCell>
-              <EditableCell
-                value={task.description}
-                onSave={(v) => save(task._id, "description", v)}
-              />
-            </TableCell>
-
-            <TableCell>
-              <Input
-                type='date'
-                defaultValue={task.dueDate?.split("T")[0]}
-                onBlur={(e) => {
-                  const value = e.target.value
-                  if (!value) return
-                  save(task._id, "dueDate", new Date(value).toISOString())
-                }}
-              />
-            </TableCell>
-
-            <TableCell>
-              <Select
-                defaultValue={task.priority}
-                onValueChange={(v) => save(task._id, "priority", v)}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='Low'>Low</SelectItem>
-                  <SelectItem value='Medium'>Medium</SelectItem>
-                  <SelectItem value='High'>High</SelectItem>
-                  <SelectItem value='Urgent'>Urgent</SelectItem>
-                </SelectContent>
-              </Select>
-            </TableCell>
-
-            <TableCell>
-              <Select
-                defaultValue={task.status}
-                onValueChange={(v) => save(task._id, "status", v)}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='To Do'>To Do</SelectItem>
-                  <SelectItem value='In Progress'>In Progress</SelectItem>
-                  <SelectItem value='Review'>Review</SelectItem>
-                  <SelectItem value='Completed'>Completed</SelectItem>
-                </SelectContent>
-              </Select>
-            </TableCell>
-
-            <TableCell>
-              <DeleteBtn id={task._id} />
-            </TableCell>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Title</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Due Date</TableHead>
+            <TableHead>Priority</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+
+        <TableBody>
+          {filteredTasks.map((task) => (
+            <TableRow key={task._id}>
+              <TableCell>
+                <EditableCell
+                  value={task.title}
+                  onSave={(v) => save(task._id, "title", v)}
+                />
+              </TableCell>
+
+              <TableCell>
+                <EditableCell
+                  value={task.description}
+                  onSave={(v) => save(task._id, "description", v)}
+                />
+              </TableCell>
+
+              <TableCell>
+                <Input
+                  type='date'
+                  defaultValue={task.dueDate?.split("T")[0]}
+                  onBlur={(e) => {
+                    const value = e.target.value
+                    if (!value) return
+                    save(task._id, "dueDate", new Date(value).toISOString())
+                  }}
+                />
+              </TableCell>
+
+              <TableCell>
+                <Select
+                  defaultValue={task.priority}
+                  onValueChange={(v) => save(task._id, "priority", v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value='Low'>Low</SelectItem>
+                    <SelectItem value='Medium'>Medium</SelectItem>
+                    <SelectItem value='High'>High</SelectItem>
+                    <SelectItem value='Urgent'>Urgent</SelectItem>
+                  </SelectContent>
+                </Select>
+              </TableCell>
+
+              <TableCell>
+                <Select
+                  defaultValue={task.status}
+                  onValueChange={(v) => save(task._id, "status", v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value='To Do'>To Do</SelectItem>
+                    <SelectItem value='In Progress'>In Progress</SelectItem>
+                    <SelectItem value='Review'>Review</SelectItem>
+                    <SelectItem value='Completed'>Completed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </TableCell>
+
+              <TableCell>
+                <DeleteBtn id={task._id} />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   )
 }
