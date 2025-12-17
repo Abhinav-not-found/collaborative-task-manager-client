@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createTask } from "@/helper/task-helper"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { Plus } from "lucide-react"
 
 type Priority = "Low" | "Medium" | "High" | "Urgent"
 type Status = "To Do" | "In Progress" | "Review" | "Completed"
@@ -63,7 +64,7 @@ const CreateTask = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Create Task</Button>
+        <Button><Plus/>Create Task</Button>
       </DialogTrigger>
 
       <DialogContent>
